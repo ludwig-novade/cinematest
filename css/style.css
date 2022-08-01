@@ -34,4 +34,9 @@ h5 {
     cursor: pointer;
     flex-grow: 2;
     text-align: center;
+    transition: color .3s;
+}
+
+.card > .label-link:hover {
+    color: green;
 }
