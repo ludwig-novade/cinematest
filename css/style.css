@@ -6,16 +6,24 @@ h4, h5 {
     text-align: center;
 }
 
+h5 {
+    margin-bottom: 40px;
+}
+
+#totalViews {
+    font-size: 40px;
+    font-weight: bolder;
+}
+
 .locals {
     max-height: 85vh;
-    display: flex;
-    flex-direction: column;
-    flex-wrap: wrap;
-    column-gap: 20px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    grid-gap: 20px;
 }
 
 .card {
-    font-size: 40px;
+    font-size: 30px;
     text-transform: uppercase;
     display: flex;
     justify-content: space-between;
@@ -24,4 +32,6 @@ h4, h5 {
 
 .card > .label-link {
     cursor: pointer;
+    flex-grow: 2;
+    text-align: center;
 }
