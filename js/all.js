@@ -77,4 +77,8 @@ const renderLocals = () => {
             viewLink(linkURL, local)
         })
     })
+
+    const totalViews = Object.values(localMap).reduce((prev, next) => prev + next, 0);
+
+    document.getElementById("totalViews").innerHTML = totalViews;
 }
