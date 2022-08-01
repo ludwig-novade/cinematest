@@ -1,0 +1,27 @@
+.container {
+    padding-top: 20px;
+}
+
+h4 {
+    text-align: center;
+}
+
+.locals {
+    max-height: 85vh;
+    display: flex;
+    flex-direction: column;
+    flex-wrap: wrap;
+    column-gap: 20px;
+}
+
+.card {
+    font-size: 40px;
+    text-transform: uppercase;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.card > .label-link {
+    cursor: pointer;
+}
