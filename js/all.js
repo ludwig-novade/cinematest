@@ -39,7 +39,7 @@ function createLocalCard (local) {
     var card = document.createElement("div");
     card.classList.add("card");
     var label = document.createElement("btn");
-    label.innerHTML = local.name.replace("_", " ");
+    label.innerHTML = local.name.replace("_", " ").replace("dot", ".");
     label.classList.add("label-link");
     label.setAttribute("data-local", local.name);
     var counter = document.createElement("counter");
