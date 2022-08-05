@@ -1,5 +1,150 @@
+var locals = [
+    {
+        "name": "angono",
+        "link": "https://google.com"
+    },
+    {
+        "name": "antipolo",
+        "link": "https://google.com"
+    },
+    {
+        "name": "antipolo_hills",
+        "link": "https://google.com"
+    },
+    {
+        "name": "barcelona",
+        "link": "https://google.com"
+    },
+    {
+        "name": "brookside",
+        "link": "https://google.com"
+    },
+    {
+        "name": "buso-buso",
+        "link": "https://google.com"
+    },
+    {
+        "name": "cainta",
+        "link": "https://google.com"
+    },
+    {
+        "name": "calawis",
+        "link": "https://google.com"
+    },
+    {
+        "name": "centennial",
+        "link": "https://google.com"
+    },
+    {
+        "name": "central inarawan",
+        "link": "https://google.com"
+    },
+    {
+        "name": "egm",
+        "link": "https://google.com"
+    },
+    {
+        "name": "floodway",
+        "link": "https://google.com"
+    },
+    {
+        "name": "fym",
+        "link": "https://google.com"
+    },
+    {
+        "name": "galilie",
+        "link": "https://google.com"
+    },
+    {
+        "name": "grand_valley",
+        "link": "https://google.com"
+    },
+    {
+        "name": "kadalagahan",
+        "link": "https://google.com"
+    },
+    {
+        "name": "ldot_aguilar",
+        "link": "https://google.com"
+    },
+    {
+        "name": "modesta",
+        "link": "https://google.com"
+    },
+    {
+        "name": "muzon",
+        "link": "https://google.com"
+    },
+    {
+        "name": "padilla",
+        "link": "https://google.com"
+    },
+    {
+        "name": "paraiso",
+        "link": "https://google.com"
+    },
+    {
+        "name": "peñafrancia",
+        "link": "https://google.com"
+    },
+    {
+        "name": "pintong_bukawe",
+        "link": "https://google.com"
+    },
+    {
+        "name": "planters",
+        "link": "https://google.com"
+    },
+    {
+        "name": "rodriguez",
+        "link": "https://google.com"
+    },
+    {
+        "name": "san_mateo",
+        "link": "https://google.com"
+    },
+    {
+        "name": "silangan",
+        "link": "https://google.com"
+    },
+    {
+        "name": "solid",
+        "link": "https://google.com"
+    },
+    {
+        "name": "sta_ana",
+        "link": "https://google.com"
+    },
+    {
+        "name": "summer_hills",
+        "link": "https://google.com"
+    },
+    {
+        "name": "summerville",
+        "link": "https://google.com"
+    },
+    {
+        "name": "taytay",
+        "link": "https://google.com"
+    },
+    {
+        "name": "tinmark",
+        "link": "https://google.com"
+    },
+    {
+        "name": "valleyview",
+        "link": "https://google.com"
+    },
+    {
+        "name": "village_east",
+        "link": "https://google.com"
+    },
+    {
+        "name": "wawa",
+        "link": "https://google.com"
+    }
+];
 // Import the functions you need from the SDKs you need
-import locals from '../locals.json' assert {type: 'json'};
 import { initializeApp } from "https://www.gstatic.com/firebasejs/9.9.1/firebase-app.js";
 import { getDatabase, ref, set, runTransaction, onValue } from 'https://www.gstatic.com/firebasejs/9.9.1/firebase-database.js'
 // TODO: Add SDKs for Firebase products that you want to use
