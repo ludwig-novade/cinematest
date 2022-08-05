@@ -22,7 +22,7 @@ const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
 const viewLink = (local) => {
-    window.open(`/view?local=${local}`, "_blank");
+    window.open(`cinematest/view?local=${local}`, "_blank");
 }
 const localRef = ref(db, "locals");
 let localMap = {};
