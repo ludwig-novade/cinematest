@@ -7,7 +7,7 @@ import { getDatabase, ref, set, runTransaction, onValue } from 'https://www.gsta
 
 // Your web app's Firebase configuration
 // For Firebase JS SDK v7.20.0 and later, measurementId is optional
-const firebaseConfig = {
+var firebaseConfig = {
     apiKey: "AIzaSyCjOe1HrNW1hjmXylH8b7mFXaGMcRdBNO0",
     authDomain: "ludwig-test.firebaseapp.com",
     projectId: "ludwig-test",
@@ -18,60 +18,60 @@ const firebaseConfig = {
     databaseURL: "https://ludwig-test-default-rtdb.asia-southeast1.firebasedatabase.app"
 };
 // Initialize Firebase
-const app = initializeApp(firebaseConfig);
-const db = getDatabase(app);
+var app = initializeApp(firebaseConfig);
+var db = getDatabase(app);
 
-const viewLink = (local) => {
+function viewLink (local) {
     window.open(`view?local=${local}`, "_blank");
 }
-const localRef = ref(db, "locals");
-let localMap = {};
+var localRef = ref(db, "locals");
+var localMap = {};
 
 // DB CHANGE LISTENER
-onValue(localRef, (snapshot) => {
-    const data = snapshot.val();
+onValue(localRef, function (snapshot){
+    var data = snapshot.val();
     localMap = data;
     if(window.location.pathname === "/cinematest/")
         renderLocals();
 });
 
-const createLocalCard = (local) => {
-    const card = document.createElement("div");
+function createLocalCard (local) {
+    var card = document.createElement("div");
     card.classList.add("card");
-    const label = document.createElement("btn");
+    var label = document.createElement("btn");
     label.innerHTML = local.name.replace("_", " ");
     label.classList.add("label-link");
     label.setAttribute("data-local", local.name);
-    const counter = document.createElement("counter");
+    var counter = document.createElement("counter");
     counter.innerHTML = localMap[local.name] || 0;
     card.appendChild(label);
     card.appendChild(counter);
     return card;
 }
 
-const renderLocals = () => {
-    const newLocalsNode = document.createElement("div");
-    locals.forEach(local => {
-        const card = createLocalCard(local);
+function renderLocals(){
+    var newLocalsNode = document.createElement("div");
+    locals.forEach(function(local){
+        var card = createLocalCard(local);
         newLocalsNode.appendChild(card);
     })
 
     document.querySelector(".locals").innerHTML = newLocalsNode.innerHTML;
 
-    const links = document.querySelectorAll(".label-link");
-    links.forEach(link => {
-        link.addEventListener("click", () => {
-            const local = link.getAttribute("data-local");
+    var links = document.querySelectorAll(".label-link");
+    links.forEach(function(link){
+        link.addEventListener("click", function (){
+            var local = link.getAttribute("data-local");
             viewLink(local)
         })
     })
 
-    const totalViews = Object.values(localMap).reduce((prev, next) => prev + next, 0);
+    var totalViews = Object.values(localMap).reduce(function(prev, next){ return prev + next}, 0);
 
     document.getElementById("totalViews").innerHTML = totalViews;
 }
 
-let player;
+var player;
 
 docReady(function() {
     if(window.location.pathname !== "/cinematest/")
@@ -107,11 +107,11 @@ function onPlayerReady(event) {
 // when video ends
 function onPlayerStateChange(event) {        
     if(event.data === 0) {          
-        const params = new Proxy(new URLSearchParams(window.location.search), {
-            get: (searchParams, prop) => searchParams.get(prop),
+        var params = new Proxy(new URLSearchParams(window.location.search), {
+            get: function(searchParams, prop) {return searchParams.get(prop)},
           });
-        const localRef = ref(db, "locals");
-        runTransaction(localRef, locals => {
+        var localRef = ref(db, "locals");
+        runTransaction(localRef, function(locals){
             if (locals) {
                 if (locals[params.local])
                     locals[params.local]++;
