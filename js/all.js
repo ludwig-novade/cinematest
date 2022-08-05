@@ -31,7 +31,7 @@ let localMap = {};
 onValue(localRef, (snapshot) => {
     const data = snapshot.val();
     localMap = data;
-    if(window. location. pathname === "/")
+    if(window.location.pathname === "/")
         renderLocals();
 });
 
@@ -74,7 +74,8 @@ const renderLocals = () => {
 let player;
 
 docReady(function() {
-    onYouTubePlayerAPIReady()
+    if(window.location.pathname !== "/")
+        onYouTubePlayerAPIReady()
 });
 
 function docReady(fn) {
