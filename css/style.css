@@ -23,7 +23,7 @@ h5 {
 }
 
 .card {
-    font-size: 30px;
+    font-size: 20px;
     text-transform: uppercase;
     display: flex;
     justify-content: space-between;
@@ -40,3 +40,20 @@ h5 {
 .card > .label-link:hover {
     color: green;
 }
+
+.player_container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+}
+
+@media only screen and (max-width: 600px) {
+    .locals {
+      grid-template-columns: 1fr 1fr;
+    }
+
+    .card > .label-link {
+        text-align: left;
+    }
+  }

@@ -21,19 +21,8 @@ const firebaseConfig = {
 const app = initializeApp(firebaseConfig);
 const db = getDatabase(app);
 
-const viewLink = (link, local) => {
-    console.log("shit");
-    window.open(link, "_blank");
-    const localRef = ref(db, "locals");
-    runTransaction(localRef, locals => {
-        if (locals) {
-            if (locals[local])
-                locals[local]++;
-            else
-                locals[local] = 1;
-        }
-        return locals;
-    })
+const viewLink = (local) => {
+    window.open(`/view?local=${local}`, "_blank");
 }
 const localRef = ref(db, "locals");
 let localMap = {};
@@ -42,7 +31,8 @@ let localMap = {};
 onValue(localRef, (snapshot) => {
     const data = snapshot.val();
     localMap = data;
-    renderLocals();
+    if(window. location. pathname === "/")
+        renderLocals();
 });
 
 const createLocalCard = (local) => {
@@ -51,7 +41,6 @@ const createLocalCard = (local) => {
     const label = document.createElement("btn");
     label.innerHTML = local.name.replace("_", " ");
     label.classList.add("label-link");
-    label.setAttribute("data-link", local.link);
     label.setAttribute("data-local", local.name);
     const counter = document.createElement("counter");
     counter.innerHTML = localMap[local.name] || 0;
@@ -72,13 +61,63 @@ const renderLocals = () => {
     const links = document.querySelectorAll(".label-link");
     links.forEach(link => {
         link.addEventListener("click", () => {
-            const linkURL = link.getAttribute("data-link");
             const local = link.getAttribute("data-local");
-            viewLink(linkURL, local)
+            viewLink(local)
         })
     })
 
     const totalViews = Object.values(localMap).reduce((prev, next) => prev + next, 0);
 
     document.getElementById("totalViews").innerHTML = totalViews;
+}
+
+let player;
+
+docReady(function() {
+    onYouTubePlayerAPIReady()
+});
+
+function docReady(fn) {
+    // see if DOM is already available
+    if (document.readyState === "complete" || document.readyState === "interactive") {
+        // call on next available tick
+        setTimeout(fn, 1);
+    } else {
+        document.addEventListener("DOMContentLoaded", fn);
+    }
+}    
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('player', {
+      width: '740',
+      height: '490',
+      videoId: 'VBKNoLcj8jA',
+      events: {
+        onReady: onPlayerReady,
+        onStateChange: onPlayerStateChange
+      }
+    });
+}
+
+// autoplay video
+function onPlayerReady(event) {
+    event.target.playVideo();
+}
+
+// when video ends
+function onPlayerStateChange(event) {        
+    if(event.data === 0) {          
+        const params = new Proxy(new URLSearchParams(window.location.search), {
+            get: (searchParams, prop) => searchParams.get(prop),
+          });
+        const localRef = ref(db, "locals");
+        runTransaction(localRef, locals => {
+            if (locals) {
+                if (locals[params.local])
+                    locals[params.local]++;
+                else
+                    locals[params.local] = 1;
+            }
+            return locals;
+        })
+    }
 }
