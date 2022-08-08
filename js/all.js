@@ -244,14 +244,21 @@ function onYouTubePlayerAPIReady() {
     });
 }
 
+var isFinish = false;
+
 // autoplay video
 function onPlayerReady(event) {
     event.target.playVideo();
+
+    setTimeout(function() {
+        isFinish = true;
+        console.log('finished')
+    }, 2580000)
 }
 
 // when video ends
 function onPlayerStateChange(event) {        
-    if(event.data === 0) {          
+    if(event.data === 0 && isFinish) {          
         var params = new Proxy(new URLSearchParams(window.location.search), {
             get: function(searchParams, prop) {return searchParams.get(prop)},
           });
@@ -265,5 +272,12 @@ function onPlayerStateChange(event) {
             }
             return locals;
         })
+
+        isFinish = false;
+
+        setTimeout(function() {
+            isFinish = true;
+            console.log('finished')
+        }, 2580000)
     }
 }
