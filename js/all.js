@@ -245,15 +245,10 @@ function onYouTubePlayerAPIReady() {
 }
 
 var isFinish = false;
-
+var isPlayed = false;
 // autoplay video
 function onPlayerReady(event) {
-    event.target.playVideo();
 
-    setTimeout(function() {
-        isFinish = true;
-        console.log('finished')
-    }, 2580000)
 }
 
 // when video ends
@@ -275,6 +270,12 @@ function onPlayerStateChange(event) {
 
         isFinish = false;
 
+        setTimeout(function() {
+            isFinish = true;
+            console.log('finished')
+        }, 2580000)
+    } else if (event.data === 1 && !isPlayed) {
+        isPlayed = true;
         setTimeout(function() {
             isFinish = true;
             console.log('finished')
