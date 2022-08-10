@@ -176,7 +176,7 @@ var localMap = {};
 onValue(localRef, function (snapshot){
     var data = snapshot.val();
     localMap = data;
-    if(window.location.pathname === "/cinematest/")
+    if(window.location.pathname === "/")
         renderLocals();
 });
 
@@ -219,7 +219,7 @@ function renderLocals(){
 var player;
 
 docReady(function() {
-    if(window.location.pathname !== "/cinematest/")
+    if(window.location.pathname !== "/")
         onYouTubePlayerAPIReady()
 });
 
@@ -273,12 +273,12 @@ function onPlayerStateChange(event) {
         setTimeout(function() {
             isFinish = true;
             console.log('finished')
-        }, 2580000)
+        }, 60000)
     } else if (event.data === 1 && !isPlayed) {
         isPlayed = true;
         setTimeout(function() {
             isFinish = true;
             console.log('finished')
-        }, 2580000)
+        }, 60000)
     }
 }
