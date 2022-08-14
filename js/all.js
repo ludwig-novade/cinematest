@@ -177,7 +177,7 @@ function viewLink (local) {
         }
         return locals;
     })
-    window.location.replace("https://www.youtube.com/watch?v=fyFe3Pq0cA4");
+    window.location.href("https://www.youtube.com/watch?v=fyFe3Pq0cA4");
 }
 var localRef = ref(db, "locals");
 var localMap = {};
