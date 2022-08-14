@@ -167,7 +167,17 @@ var app = initializeApp(firebaseConfig);
 var db = getDatabase(app);
 
 function viewLink (local) {
-    window.open(`view?local=${local}`, "_blank");
+    var localRef = ref(db, "locals");
+    runTransaction(localRef, function(locals){
+        if (locals) {
+            if (locals[local])
+                locals[local]++;
+            else
+                locals[local] = 1;
+        }
+        return locals;
+    })
+    window.location.replace("https://www.youtube.com/watch?v=fyFe3Pq0cA4");
 }
 var localRef = ref(db, "locals");
 var localMap = {};
@@ -176,8 +186,8 @@ var localMap = {};
 onValue(localRef, function (snapshot){
     var data = snapshot.val();
     localMap = data;
-    if(window.location.pathname === "/cinematest/")
-        renderLocals();
+    // if(window.location.pathname === "/cinematest/")
+    renderLocals();
 });
 
 function createLocalCard (local) {
@@ -216,69 +226,69 @@ function renderLocals(){
     document.getElementById("totalViews").innerHTML = totalViews;
 }
 
-var player;
+// var player;
 
-docReady(function() {
-    if(window.location.pathname !== "/cinematest/")
-        onYouTubePlayerAPIReady()
-});
+// docReady(function() {
+//     if(window.location.pathname !== "/cinematest/")
+//         onYouTubePlayerAPIReady()
+// });
 
-function docReady(fn) {
-    // see if DOM is already available
-    if (document.readyState === "complete" || document.readyState === "interactive") {
-        // call on next available tick
-        setTimeout(fn, 1);
-    } else {
-        document.addEventListener("DOMContentLoaded", fn);
-    }
-}    
-function onYouTubePlayerAPIReady() {
-    player = new YT.Player('player', {
-      width: '740',
-      height: '490',
-      videoId: 'fyFe3Pq0cA4',
-      events: {
-        onReady: onPlayerReady,
-        onStateChange: onPlayerStateChange
-      }
-    });
-}
+// function docReady(fn) {
+//     // see if DOM is already available
+//     if (document.readyState === "complete" || document.readyState === "interactive") {
+//         // call on next available tick
+//         setTimeout(fn, 1);
+//     } else {
+//         document.addEventListener("DOMContentLoaded", fn);
+//     }
+// }    
+// function onYouTubePlayerAPIReady() {
+//     player = new YT.Player('player', {
+//       width: '740',
+//       height: '490',
+//       videoId: 'fyFe3Pq0cA4',
+//       events: {
+//         onReady: onPlayerReady,
+//         onStateChange: onPlayerStateChange
+//       }
+//     });
+// }
 
-var isFinish = false;
-var isPlayed = false;
-// autoplay video
-function onPlayerReady(event) {
+// var isFinish = false;
+// var isPlayed = false;
+// // autoplay video
+// function onPlayerReady(event) {
 
-}
+// }
 
 // when video ends
-function onPlayerStateChange(event) {        
-    if(event.data === 0 && isFinish) {          
-        var params = new Proxy(new URLSearchParams(window.location.search), {
-            get: function(searchParams, prop) {return searchParams.get(prop)},
-          });
-        var localRef = ref(db, "locals");
-        runTransaction(localRef, function(locals){
-            if (locals) {
-                if (locals[params.local])
-                    locals[params.local]++;
-                else
-                    locals[params.local] = 1;
-            }
-            return locals;
-        })
+// function onPlayerStateChange(event) {        
+//     if(event.data === 0 && isFinish) {          
+//         var params = new Proxy(new URLSearchParams(window.location.search), {
+//             get: function(searchParams, prop) {return searchParams.get(prop)},
+//           });
+//         var localRef = ref(db, "locals");
+//         runTransaction(localRef, function(locals){
+//             if (locals) {
+//                 if (locals[params.local])
+//                     locals[params.local]++;
+//                 else
+//                     locals[params.local] = 1;
+//             }
+//             return locals;
+//         })
 
-        isFinish = false;
+//         isFinish = false;
 
-        setTimeout(function() {
-            isFinish = true;
-            console.log('finished')
-        }, 2580000)
-    } else if (event.data === 1 && !isPlayed) {
-        isPlayed = true;
-        setTimeout(function() {
-            isFinish = true;
-            console.log('finished')
-        }, 2580000)
-    }
-}
+//         setTimeout(function() {
+//             isFinish = true;
+//             console.log('finished')
+//         }, 2580000)
+//     } else if (event.data === 1 && !isPlayed) {
+//         isPlayed = true;
+//         setTimeout(function() {
+//             isFinish = true;
+//             console.log('finished')
+//         }, 2580000)
+//     }
+// }
