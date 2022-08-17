@@ -168,16 +168,23 @@ var db = getDatabase(app);
 
 function viewLink (local) {
     var localRef = ref(db, "locals");
-    runTransaction(localRef, function(locals){
-        if (locals) {
-            if (locals[local])
-                locals[local]++;
-            else
-                locals[local] = 1;
-        }
-        return locals;
-    })
-    window.location.replace("https://www.youtube.com/watch?v=fyFe3Pq0cA4&output=embed");
+    var expiryTime = Number(localStorage.getItem(local))
+    var now = new Date().getTime();
+    if(!expiryTime || ((now - expiryTime) > 2580000)) {
+        runTransaction(localRef, function(locals){
+            if (locals) {
+                if (locals[local])
+                    locals[local]++;
+                else
+                    locals[local] = 1;
+            }
+            localStorage.setItem(local, new Date().getTime());
+            return locals;
+        })
+        window.location.replace("https://www.youtube.com/watch?v=fyFe3Pq0cA4&output=embed");
+    } else {
+        alert("Please finish the movie")
+    }
 }
 var localRef = ref(db, "locals");
 var localMap = {};
